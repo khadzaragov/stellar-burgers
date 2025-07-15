@@ -10,12 +10,14 @@ import ingredientsReducer from './slices/ingredients';
 import feedsReducer from './slices/feeds';
 import ordersReducer from './slices/orders';
 import authReducer from './slices/auth';
+import constructorReducer from './slices/constructor';
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   feeds: feedsReducer,
   orders: ordersReducer,
-  auth: authReducer
+  auth: authReducer,
+  constructor: constructorReducer
 });
 
 const store = configureStore({
