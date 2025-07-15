@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { useSelector } from '../../services/store';
 
 interface Props {
   onlyAuth?: boolean;
@@ -11,7 +10,7 @@ interface Props {
 
 const ProtectedRoute: React.FC<Props> = ({ onlyAuth, onlyUnAuth, children }) => {
   // достаём флаг авторизации из стора
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
 
   if (onlyAuth && !isLoggedIn) {
