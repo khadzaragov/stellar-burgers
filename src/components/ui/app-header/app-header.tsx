@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import clsx from 'clsx';
 import styles from './app-header.module.css';
 import { TAppHeaderUIProps } from './type';
 import {
@@ -11,12 +12,14 @@ import { NavLink, Link } from 'react-router-dom';
 
 export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
   <header className={styles.header}>
-    <nav className={`${styles.menu} p-4`}>
+    <nav className={clsx(styles.menu, 'p-4')}>
       <div className={styles.menu_part_left}>
         <NavLink
           to='/'
           className={({ isActive }) =>
-            `${styles.link} pr-5 pl-5 ${isActive ? styles.link_active : ''}`
+            clsx(styles.link, 'pr-5', 'pl-5', {
+              [styles.link_active]: isActive
+            })
           }
           end
         >
@@ -32,7 +35,9 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         <NavLink
           to='/feed'
           className={({ isActive }) =>
-            `${styles.link} pr-5 pl-5 ${isActive ? styles.link_active : ''}`
+            clsx(styles.link, 'pr-5', 'pl-5', {
+              [styles.link_active]: isActive
+            })
           }
         >
           {({ isActive }) => (
@@ -52,7 +57,9 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         <NavLink
           to='/profile'
           className={({ isActive }) =>
-            `${styles.link} pr-5 pl-5 ${isActive ? styles.link_active : ''}`
+            clsx(styles.link, 'pr-5', 'pl-5', {
+              [styles.link_active]: isActive
+            })
           }
         >
           {({ isActive }) => (

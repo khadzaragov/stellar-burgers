@@ -119,6 +119,12 @@ const authSlice = createSlice({
           state.user = action.payload.user;
         }
       )
+      .addCase(updateUser.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.error = action.error.message || null;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isLoggedIn = false;
