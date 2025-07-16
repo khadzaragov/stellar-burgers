@@ -25,3 +25,7 @@ export const selectUser = (state: RootState) => state.auth.user;
 export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
 export const selectAuthLoading = (state: RootState) => state.auth.isLoading;
 export const selectAuthError = (state: RootState) => state.auth.error;
+
+export const selectPasswordLoading = (state: RootState) =>
+  state.password.isLoading;
+export const selectPasswordError = (state: RootState) => state.password.error;

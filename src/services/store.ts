@@ -11,13 +11,15 @@ import feedsReducer from './slices/feeds';
 import ordersReducer from './slices/orders';
 import authReducer from './slices/auth';
 import burgerConstructorReducer from './slices/burger-constructor';
+import passwordReducer from './slices/password';
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   feeds: feedsReducer,
   orders: ordersReducer,
   auth: authReducer,
-  burgerConstructor: burgerConstructorReducer
+  burgerConstructor: burgerConstructorReducer,
+  password: passwordReducer
 });
 
 const store = configureStore({
@@ -29,7 +31,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export const useDispatch: () => AppDispatch = () => dispatchHook();
+export const useDispatch: () => AppDispatch = () => dispatchHook<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 export default store;
