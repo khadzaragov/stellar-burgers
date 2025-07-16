@@ -2,6 +2,7 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
+import type { ConstructorState } from '@slices/constructor';
 import {
   selectConstructorItems,
   selectOrderModalData,
@@ -11,7 +12,7 @@ import { createOrder, clearOrderModalData } from '@slices/orders';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const constructorItems = useSelector(selectConstructorItems);
+  const constructorItems: ConstructorState = useSelector(selectConstructorItems);
   const orderRequest = useSelector(selectOrderRequest);
   const orderModalData = useSelector(selectOrderModalData);
 
