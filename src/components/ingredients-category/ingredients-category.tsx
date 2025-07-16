@@ -4,7 +4,7 @@ import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
 import { useSelector } from '../../services/store';
 import { selectConstructorItems } from '@selectors';
-import type { ConstructorState } from '@slices/constructor';
+import type { ConstructorState } from '@slices/burger-constructor';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,

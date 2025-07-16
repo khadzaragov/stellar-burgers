@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
-import type { ConstructorState } from '@slices/constructor';
+import type { ConstructorState } from '@slices/burger-constructor';
 import {
   selectConstructorItems,
   selectOrderModalData,

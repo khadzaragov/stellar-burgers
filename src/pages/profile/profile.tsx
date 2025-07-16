@@ -16,9 +16,9 @@ export const Profile: FC = () => {
 
   useEffect(() => {
     dispatch(fetchUser());
-    }, [dispatch]);
+  }, [dispatch]);
 
-    useEffect(() => {
+  useEffect(() => {
     setFormValue((prevState) => ({
       ...prevState,
       name: user?.name || '',
