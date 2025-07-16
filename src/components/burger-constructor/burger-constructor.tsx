@@ -3,23 +3,31 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
 import type { ConstructorState } from '@slices/burger-constructor';
+import { useNavigate } from 'react-router-dom';
 import {
   selectConstructorItems,
   selectOrderModalData,
-  selectOrderRequest
+  selectOrderRequest,
+  selectIsLoggedIn
 } from '@selectors';
 import { createOrder, clearOrderModalData } from '@slices/orders';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const constructorItems: ConstructorState = useSelector(
     selectConstructorItems
   );
   const orderRequest = useSelector(selectOrderRequest);
   const orderModalData = useSelector(selectOrderModalData);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
     const ids = [
       constructorItems.bun._id,
       ...constructorItems.ingredients.map((item) => item._id),
