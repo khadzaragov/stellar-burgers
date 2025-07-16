@@ -20,10 +20,11 @@ import ProtectedRoute from './ProtectedRoute';
 import '../../index.css';
 import styles from './app.module.css';
 import { AppHeader } from '@components';
+import { TLocationState } from '@utils-types';
 
 const App: React.FC = () => {
   const location = useLocation();
-  const background = (location.state as any)?.background;
+  const background = (location.state as TLocationState)?.background;
 
   return (
     <div className={styles.app}>

@@ -1,12 +1,14 @@
 import { RootState } from './store';
 import { ConstructorState } from './slices/burger-constructor';
+import { TFeedInfo } from '@ui/feed-info/type';
 
 export const selectIngredients = (state: RootState) => state.ingredients.items;
 export const selectIngredientsLoading = (state: RootState) =>
   state.ingredients.isLoading;
 
 export const selectFeedOrders = (state: RootState) => state.feeds.orders;
-export const selectFeedInfo = (state: RootState) => ({
+
+export const selectFeedInfo = (state: RootState): TFeedInfo => ({
   total: state.feeds.total,
   totalToday: state.feeds.totalToday
 });

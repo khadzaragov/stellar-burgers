@@ -41,6 +41,9 @@ const ordersSlice = createSlice({
   reducers: {
     clearOrderModalData(state) {
       state.orderModalData = null;
+    },
+    setUserOrders(state, action: PayloadAction<TOrder[]>) {
+      state.orders = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -75,5 +78,5 @@ const ordersSlice = createSlice({
   }
 });
 
-export const { clearOrderModalData } = ordersSlice.actions;
+export const { clearOrderModalData, setUserOrders } = ordersSlice.actions;
 export default ordersSlice.reducer;

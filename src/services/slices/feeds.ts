@@ -26,7 +26,13 @@ const initialState: FeedsState = {
 const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
-  reducers: {},
+  reducers: {
+    setFeedsData(state, action: PayloadAction<TOrdersData>) {
+      state.orders = action.payload.orders;
+      state.total = action.payload.total;
+      state.totalToday = action.payload.totalToday;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFeeds.pending, (state) => {
@@ -50,3 +56,4 @@ const feedsSlice = createSlice({
 });
 
 export default feedsSlice.reducer;
+export const { setFeedsData } = feedsSlice.actions;
