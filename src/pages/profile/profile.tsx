@@ -2,12 +2,14 @@ import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchUser, updateUser } from '@slices/auth';
-import { selectUser, selectAuthError } from '@selectors';
+import { selectUser, selectAuthError, selectAuthLoading } from '@selectors';
+import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const updateUserError = useSelector(selectAuthError);
+  const isLoading = useSelector(selectAuthLoading);
 
   const [formValue, setFormValue] = useState({
     name: user?.name ?? '',
@@ -58,6 +60,10 @@ export const Profile: FC = () => {
       [e.target.name]: e.target.value
     }));
   };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
 
   return (
     <ProfileUI
