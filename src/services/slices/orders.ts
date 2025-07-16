@@ -45,24 +45,33 @@ const ordersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserOrders.fulfilled, (state, action: PayloadAction<TOrder[]>) => {
-        state.orders = action.payload;
-      })
+      .addCase(
+        fetchUserOrders.fulfilled,
+        (state, action: PayloadAction<TOrder[]>) => {
+          state.orders = action.payload;
+        }
+      )
       .addCase(createOrder.pending, (state) => {
         state.orderRequest = true;
         state.error = null;
       })
-      .addCase(createOrder.fulfilled, (state, action: PayloadAction<{ order: TOrder }>) => {
-        state.orderRequest = false;
-        state.orderModalData = action.payload.order;
-      })
+      .addCase(
+        createOrder.fulfilled,
+        (state, action: PayloadAction<{ order: TOrder }>) => {
+          state.orderRequest = false;
+          state.orderModalData = action.payload.order;
+        }
+      )
       .addCase(createOrder.rejected, (state, action) => {
         state.orderRequest = false;
         state.error = action.error.message || null;
       })
-      .addCase(fetchOrderByNumber.fulfilled, (state, action: PayloadAction<{ orders: TOrder[] }>) => {
-        state.orderModalData = action.payload.orders[0];
-      });
+      .addCase(
+        fetchOrderByNumber.fulfilled,
+        (state, action: PayloadAction<{ orders: TOrder[] }>) => {
+          state.orderModalData = action.payload.orders[0];
+        }
+      );
   }
 });
 

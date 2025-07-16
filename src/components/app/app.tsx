@@ -103,7 +103,10 @@ const App: React.FC = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal onClose={() => window.history.back()}>
+              <Modal
+                title='Детали ингредиента'
+                onClose={() => window.history.back()}
+              >
                 <IngredientDetails />
               </Modal>
             }
@@ -111,7 +114,10 @@ const App: React.FC = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal onClose={() => window.history.back()}>
+              <Modal
+                title='Детали заказа'
+                onClose={() => window.history.back()}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -119,7 +125,10 @@ const App: React.FC = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal onClose={() => window.history.back()}>
+              <Modal
+                title='Детали заказа'
+                onClose={() => window.history.back()}
+              >
                 <OrderInfo />
               </Modal>
             }

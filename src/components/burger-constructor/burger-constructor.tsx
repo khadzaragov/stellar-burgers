@@ -12,7 +12,9 @@ import { createOrder, clearOrderModalData } from '@slices/orders';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const constructorItems: ConstructorState = useSelector(selectConstructorItems);
+  const constructorItems: ConstructorState = useSelector(
+    selectConstructorItems
+  );
   const orderRequest = useSelector(selectOrderRequest);
   const orderModalData = useSelector(selectOrderModalData);
 

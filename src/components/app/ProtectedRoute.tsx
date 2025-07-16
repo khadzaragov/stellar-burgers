@@ -8,7 +8,11 @@ interface Props {
   children: ReactElement;
 }
 
-const ProtectedRoute: React.FC<Props> = ({ onlyAuth, onlyUnAuth, children }) => {
+const ProtectedRoute: React.FC<Props> = ({
+  onlyAuth,
+  onlyUnAuth,
+  children
+}) => {
   // достаём флаг авторизации из стора
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();

@@ -28,14 +28,20 @@ export const loginUser = createAsyncThunk(
   async (data: TLoginData) => await loginUserApi(data)
 );
 
-export const fetchUser = createAsyncThunk('auth/fetchUser', async () => await getUserApi());
+export const fetchUser = createAsyncThunk(
+  'auth/fetchUser',
+  async () => await getUserApi()
+);
 
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
   async (user: Partial<TRegisterData>) => await updateUserApi(user)
 );
 
-export const logout = createAsyncThunk('auth/logout', async () => await logoutApi());
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async () => await logoutApi()
+);
 
 const initialState: AuthState = {
   user: null,
@@ -54,13 +60,23 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, action: PayloadAction<{ user: TUser; refreshToken: string; accessToken: string }>) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.isLoggedIn = true;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
-        setCookie('accessToken', action.payload.accessToken);
-      })
+      .addCase(
+        registerUser.fulfilled,
+        (
+          state,
+          action: PayloadAction<{
+            user: TUser;
+            refreshToken: string;
+            accessToken: string;
+          }>
+        ) => {
+          state.isLoading = false;
+          state.user = action.payload.user;
+          state.isLoggedIn = true;
+          localStorage.setItem('refreshToken', action.payload.refreshToken);
+          setCookie('accessToken', action.payload.accessToken);
+        }
+      )
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || null;
@@ -69,24 +85,40 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<{ user: TUser; refreshToken: string; accessToken: string }>) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.isLoggedIn = true;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
-        setCookie('accessToken', action.payload.accessToken);
-      })
+      .addCase(
+        loginUser.fulfilled,
+        (
+          state,
+          action: PayloadAction<{
+            user: TUser;
+            refreshToken: string;
+            accessToken: string;
+          }>
+        ) => {
+          state.isLoading = false;
+          state.user = action.payload.user;
+          state.isLoggedIn = true;
+          localStorage.setItem('refreshToken', action.payload.refreshToken);
+          setCookie('accessToken', action.payload.accessToken);
+        }
+      )
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || null;
       })
-      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ user: TUser }>) => {
-        state.user = action.payload.user;
-        state.isLoggedIn = true;
-      })
-      .addCase(updateUser.fulfilled, (state, action: PayloadAction<{ user: TUser }>) => {
-        state.user = action.payload.user;
-      })
+      .addCase(
+        fetchUser.fulfilled,
+        (state, action: PayloadAction<{ user: TUser }>) => {
+          state.user = action.payload.user;
+          state.isLoggedIn = true;
+        }
+      )
+      .addCase(
+        updateUser.fulfilled,
+        (state, action: PayloadAction<{ user: TUser }>) => {
+          state.user = action.payload.user;
+        }
+      )
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isLoggedIn = false;
