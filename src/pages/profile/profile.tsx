@@ -1,18 +1,27 @@
 import { ProfileUI } from '@ui-pages';
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from '../../services/store';
+import { fetchUser, updateUser } from '@slices/auth';
+import { selectUser, selectAuthError, selectAuthLoading } from '@selectors';
+import { Preloader } from '@ui';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
-  const user = {
-    name: '',
-    email: ''
-  };
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const updateUserError = useSelector(selectAuthError);
+  const isLoading = useSelector(selectAuthLoading);
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: user?.name ?? '',
+    email: user?.email ?? '',
     password: ''
   });
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     setFormValue((prevState) => ({
@@ -27,15 +36,21 @@ export const Profile: FC = () => {
     formValue.email !== user?.email ||
     !!formValue.password;
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(
+      updateUser({
+        name: formValue.name,
+        email: formValue.email,
+        password: formValue.password
+      })
+    );
   };
 
-  const handleCancel = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const handleCancel = () => {
     setFormValue({
-      name: user.name,
-      email: user.email,
+      name: user?.name ?? '',
+      email: user?.email ?? '',
       password: ''
     });
   };
@@ -47,6 +62,10 @@ export const Profile: FC = () => {
     }));
   };
 
+  if (isLoading) {
+    return <Preloader />;
+  }
+
   return (
     <ProfileUI
       formValue={formValue}
@@ -54,8 +73,7 @@ export const Profile: FC = () => {
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
+      updateUserError={updateUserError || ''}
     />
   );
-
-  return null;
 };
