@@ -45,8 +45,7 @@ export const Profile: FC = () => {
     );
   };
 
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleCancel = () => {
     setFormValue({
       name: user?.name ?? '',
       email: user?.email ?? '',

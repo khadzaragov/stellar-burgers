@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 
 export type ProfileUIProps = {
   formValue: {
@@ -8,7 +8,7 @@ export type ProfileUIProps = {
   };
   isFormChanged: boolean;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  handleCancel: (e: MouseEvent<HTMLButtonElement>) => void;
+  handleCancel: () => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   updateUserError: string;
 };
