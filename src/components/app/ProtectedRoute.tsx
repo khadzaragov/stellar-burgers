@@ -42,9 +42,7 @@ const ProtectedRoute: React.FC<Props> = ({
   }
   if (onlyUnAuth && isLoggedIn) {
     // уже залогинен — не пускаем на гостевые страницы
-    const { from } = (location.state as TLocationState) || {
-      from: { pathname: '/' }
-    };
+    const from = (location.state as TLocationState)?.from?.pathname || '/';
     return <Navigate to={from} replace />;
   }
   return children;

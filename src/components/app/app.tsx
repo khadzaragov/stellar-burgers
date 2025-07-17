@@ -34,6 +34,7 @@ const App: React.FC = () => {
       dispatch(fetchUser());
     } else {
       dispatch(setAuthChecked(true));
+    }
   }, [dispatch]);
 
   return (
