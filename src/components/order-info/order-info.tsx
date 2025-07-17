@@ -4,13 +4,13 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
-import { selectOrderModalData, selectIngredients } from '@selectors';
-import { fetchOrderByNumber, clearOrderModalData } from '@slices/orders';
+import { selectOrderDetails, selectIngredients } from '@selectors';
+import { fetchOrderByNumber, clearOrderDetails } from '@slices/orders';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
   const { number } = useParams();
-  const orderData = useSelector(selectOrderModalData);
+  const orderData = useSelector(selectOrderDetails);
   const ingredients: TIngredient[] = useSelector(selectIngredients);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export const OrderInfo: FC = () => {
       dispatch(fetchOrderByNumber(Number(number)));
     }
     return () => {
-      dispatch(clearOrderModalData());
+      dispatch(clearOrderDetails());
     };
   }, [dispatch, number]);
 

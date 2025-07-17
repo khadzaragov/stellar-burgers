@@ -19,12 +19,14 @@ export const selectOrderRequest = (state: RootState) =>
   state.orders.orderRequest;
 export const selectOrderModalData = (state: RootState) =>
   state.orders.orderModalData;
+export const selectOrderDetails = (state: RootState) => state.orders.orderDetails;
 
 export const selectConstructorItems = (state: RootState): ConstructorState =>
   state.burgerConstructor;
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
+export const selectIsAuthChecked = (state: RootState) => state.auth.isAuthChecked;
 export const selectAuthLoading = (state: RootState) => state.auth.isLoading;
 export const selectAuthError = (state: RootState) => state.auth.error;
 

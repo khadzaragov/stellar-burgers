@@ -22,7 +22,7 @@ import styles from './app.module.css';
 import { AppHeader } from '@components';
 import { TLocationState } from '@utils-types';
 import { useDispatch } from '../../services/store';
-import { fetchUser } from '@slices/auth';
+import { fetchUser, setAuthChecked } from '@slices/auth';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,8 @@ const App: React.FC = () => {
   useEffect(() => {
     if (localStorage.getItem('refreshToken')) {
       dispatch(fetchUser());
-    }
+    } else {
+      dispatch(setAuthChecked(true));
   }, [dispatch]);
 
   return (

@@ -1,7 +1,9 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
-import { fetchUser } from '@slices/auth';
+import { fetchUser, setAuthChecked } from '@slices/auth';
+import { TLocationState } from '@utils-types';
+import { Preloader } from '../ui/preloader';
 
 interface Props {
   onlyAuth?: boolean;
@@ -15,17 +17,23 @@ const ProtectedRoute: React.FC<Props> = ({
   children
 }) => {
   const dispatch = useDispatch();
-  const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn, isAuthChecked, isLoading } = useSelector(
+    (state) => state.auth
+  );
   const location = useLocation();
 
   useEffect(() => {
-    if (!isLoggedIn && localStorage.getItem('refreshToken')) {
-      dispatch(fetchUser());
+    if (!isAuthChecked) {
+      if (localStorage.getItem('refreshToken')) {
+        dispatch(fetchUser());
+      } else {
+        dispatch(setAuthChecked(true));
+      }
     }
-  }, [dispatch, isLoggedIn]);
+  }, [dispatch, isAuthChecked]);
 
-  if (isLoading) {
-    return null;
+  if (!isAuthChecked || isLoading) {
+    return <Preloader />;
   }
 
   if (onlyAuth && !isLoggedIn) {
@@ -34,7 +42,10 @@ const ProtectedRoute: React.FC<Props> = ({
   }
   if (onlyUnAuth && isLoggedIn) {
     // уже залогинен — не пускаем на гостевые страницы
-    return <Navigate to='/' replace />;
+    const { from } = (location.state as TLocationState) || {
+      from: { pathname: '/' }
+    };
+    return <Navigate to={from} replace />;
   }
   return children;
 };

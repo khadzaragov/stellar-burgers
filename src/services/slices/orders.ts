@@ -10,12 +10,13 @@ export interface OrdersState {
   orders: TOrder[];
   orderRequest: boolean;
   orderModalData: TOrder | null;
+  orderDetails: TOrder | null;
   error: string | null;
 }
 
 export const fetchUserOrders = createAsyncThunk(
   'orders/fetchUserOrders',
-  async () => await getOrdersApi()
+  getOrdersApi
 );
 
 export const createOrder = createAsyncThunk(
@@ -32,6 +33,7 @@ const initialState: OrdersState = {
   orders: [],
   orderRequest: false,
   orderModalData: null,
+  orderDetails: null,
   error: null
 };
 
@@ -41,6 +43,9 @@ const ordersSlice = createSlice({
   reducers: {
     clearOrderModalData(state) {
       state.orderModalData = null;
+    },
+    clearOrderDetails(state) {
+      state.orderDetails = null;
     },
     setUserOrders(state, action: PayloadAction<TOrder[]>) {
       state.orders = action.payload;
@@ -72,11 +77,12 @@ const ordersSlice = createSlice({
       .addCase(
         fetchOrderByNumber.fulfilled,
         (state, action: PayloadAction<{ orders: TOrder[] }>) => {
-          state.orderModalData = action.payload.orders[0];
+          state.orderDetails = action.payload.orders[0];
         }
       );
   }
 });
 
-export const { clearOrderModalData, setUserOrders } = ordersSlice.actions;
+export const { clearOrderModalData, clearOrderDetails, setUserOrders } =
+  ordersSlice.actions;
 export default ordersSlice.reducer;
