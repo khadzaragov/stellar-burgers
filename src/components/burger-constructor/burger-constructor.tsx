@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useEffect } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
@@ -38,6 +38,12 @@ export const BurgerConstructor: FC = () => {
   const closeOrderModal = () => {
     dispatch(clearOrderModalData());
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearOrderModalData());
+    };
+  }, [dispatch]);
 
   const price = useMemo(() => {
     const bunPrice = constructorItems.bun ? constructorItems.bun.price * 2 : 0;
