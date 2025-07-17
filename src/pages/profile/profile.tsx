@@ -18,8 +18,10 @@ export const Profile: FC = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+    if (!user) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     setFormValue((prevState) => ({

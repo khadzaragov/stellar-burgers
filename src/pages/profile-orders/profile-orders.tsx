@@ -1,5 +1,5 @@
 import { ProfileOrdersUI } from '@ui-pages';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchUserOrders, setUserOrders } from '@slices/orders';
 import { selectUserOrders } from '@selectors';
@@ -15,9 +15,14 @@ export const ProfileOrders: FC = () => {
   const wsBase = (process.env.BURGER_API_URL || '')
     .replace('https', 'wss')
     .replace('/api', '');
-  useSocket<TOrdersData>(`${wsBase}/orders?token=${token}`, (data) => {
-    dispatch(setUserOrders(data.orders));
-  });
+  const handleMessage = useCallback(
+    (data: TOrdersData) => {
+      dispatch(setUserOrders(data.orders));
+    },
+    [dispatch]
+  );
+
+  useSocket<TOrdersData>(`${wsBase}/orders?token=${token}`, handleMessage);
 
   useEffect(() => {
     dispatch(fetchUserOrders());
