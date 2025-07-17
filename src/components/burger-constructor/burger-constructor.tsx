@@ -39,11 +39,12 @@ export const BurgerConstructor: FC = () => {
     dispatch(clearOrderModalData());
   };
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(clearOrderModalData());
-    };
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   const price = useMemo(() => {
     const bunPrice = constructorItems.bun ? constructorItems.bun.price * 2 : 0;
