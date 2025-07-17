@@ -1,9 +1,9 @@
-import { FC, SyntheticEvent, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TLocationState } from '@utils-types';
 import { loginUser } from '@slices/auth';
-import { selectIsLoggedIn } from '@selectors';
+import { selectIsLoggedIn, selectAuthError } from '@selectors';
 import { LoginUI } from '@ui-pages';
 
 export const Login: FC = () => {
@@ -13,8 +13,9 @@ export const Login: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const error = useSelector(selectAuthError);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
@@ -29,7 +30,7 @@ export const Login: FC = () => {
 
   return (
     <LoginUI
-      errorText=''
+      errorText={error || undefined}
       email={email}
       setEmail={setEmail}
       password={password}

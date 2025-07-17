@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ResetPasswordUI } from '@ui-pages';
@@ -13,7 +13,7 @@ export const ResetPassword: FC = () => {
   const [token, setToken] = useState('');
   const error = useSelector(selectPasswordError);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPassword({ password, token }))
       .unwrap()

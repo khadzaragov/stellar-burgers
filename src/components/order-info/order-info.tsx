@@ -5,7 +5,7 @@ import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '../../services/store';
 import { selectOrderModalData, selectIngredients } from '@selectors';
-import { fetchOrderByNumber } from '@slices/orders';
+import { fetchOrderByNumber, clearOrderModalData } from '@slices/orders';
 
 export const OrderInfo: FC = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,9 @@ export const OrderInfo: FC = () => {
     if (number) {
       dispatch(fetchOrderByNumber(Number(number)));
     }
+    return () => {
+      dispatch(clearOrderModalData());
+    };
   }, [dispatch, number]);
 
   /* Готовим данные для отображения */

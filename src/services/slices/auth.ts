@@ -20,12 +20,22 @@ interface AuthState {
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  async (data: TRegisterData) => await registerUserApi(data)
+  async (data: TRegisterData) => {
+    const response = await registerUserApi(data);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    setCookie('accessToken', response.accessToken);
+    return response;
+  }
 );
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  async (data: TLoginData) => await loginUserApi(data)
+  async (data: TLoginData) => {
+    const response = await loginUserApi(data);
+    localStorage.setItem('refreshToken', response.refreshToken);
+    setCookie('accessToken', response.accessToken);
+    return response;
+  }
 );
 
 export const fetchUser = createAsyncThunk(
@@ -38,10 +48,11 @@ export const updateUser = createAsyncThunk(
   async (user: Partial<TRegisterData>) => await updateUserApi(user)
 );
 
-export const logout = createAsyncThunk(
-  'auth/logout',
-  async () => await logoutApi()
-);
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await logoutApi();
+  localStorage.removeItem('refreshToken');
+  setCookie('accessToken', '', { expires: -1 });
+});
 
 const initialState: AuthState = {
   user: null,
@@ -73,8 +84,6 @@ const authSlice = createSlice({
           state.isLoading = false;
           state.user = action.payload.user;
           state.isLoggedIn = true;
-          localStorage.setItem('refreshToken', action.payload.refreshToken);
-          setCookie('accessToken', action.payload.accessToken);
         }
       )
       .addCase(registerUser.rejected, (state, action) => {
@@ -98,8 +107,6 @@ const authSlice = createSlice({
           state.isLoading = false;
           state.user = action.payload.user;
           state.isLoggedIn = true;
-          localStorage.setItem('refreshToken', action.payload.refreshToken);
-          setCookie('accessToken', action.payload.accessToken);
         }
       )
       .addCase(loginUser.rejected, (state, action) => {
@@ -131,8 +138,6 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.isLoggedIn = false;
-        localStorage.removeItem('refreshToken');
-        setCookie('accessToken', '', { expires: -1 });
       });
   }
 });

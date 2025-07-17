@@ -1,4 +1,4 @@
-import { FC, useState, SyntheticEvent } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ForgotPasswordUI } from '@ui-pages';
@@ -13,7 +13,7 @@ export const ForgotPassword: FC = () => {
   const navigate = useNavigate();
   const error = useSelector(selectPasswordError);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(forgotPassword({ email }))

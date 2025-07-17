@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import {
@@ -21,10 +21,19 @@ import '../../index.css';
 import styles from './app.module.css';
 import { AppHeader } from '@components';
 import { TLocationState } from '@utils-types';
+import { useDispatch } from '../../services/store';
+import { fetchUser } from '@slices/auth';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const background = (location.state as TLocationState)?.background;
+
+  useEffect(() => {
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>

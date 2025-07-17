@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
+import { fetchUser } from '@slices/auth';
 
 interface Props {
   onlyAuth?: boolean;
@@ -13,9 +14,19 @@ const ProtectedRoute: React.FC<Props> = ({
   onlyUnAuth,
   children
 }) => {
-  // достаём флаг авторизации из стора
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
   const location = useLocation();
+
+  useEffect(() => {
+    if (!isLoggedIn && localStorage.getItem('refreshToken')) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, isLoggedIn]);
+
+  if (isLoading) {
+    return null;
+  }
 
   if (onlyAuth && !isLoggedIn) {
     // не авторизован — перенаправляем на логин
