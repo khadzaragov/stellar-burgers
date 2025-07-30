@@ -1,6 +1,7 @@
 describe('Burger constructor page', () => {
   beforeEach(() => {
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' });
+    cy.intercept('GET', '/api/auth/user', { fixture: 'user.json' });
     cy.visit('/');
   });
 
@@ -23,8 +24,12 @@ describe('Burger constructor page', () => {
   it('should open and close ingredient modal', () => {
     cy.contains('Краторная булка N-200i').click();
     cy.contains('Детали ингредиента').should('exist');
-    cy.get('button').contains('Close').should('not.exist');
     cy.get('button').first().click();
+    cy.contains('Детали ингредиента').should('not.exist');
+
+    cy.contains('Краторная булка N-200i').click();
+    cy.contains('Детали ингредиента').should('exist');
+    cy.get('.overlay').click('center');
     cy.contains('Детали ингредиента').should('not.exist');
   });
 

@@ -9,6 +9,7 @@ export default defineConfig({
       return config;
     },
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
-    baseUrl: 'http://localhost:4000'
+    baseUrl: 'http://localhost:4000',
+    supportFile: 'cypress/support/e2e.ts'
   }
 });
