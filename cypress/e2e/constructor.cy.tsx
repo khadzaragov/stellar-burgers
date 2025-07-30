@@ -8,6 +8,10 @@ describe('Burger constructor page', () => {
     cy.wait('@getIngredients');
   });
 
+  afterEach(() => {
+    cy.clearCookies();
+  });
+
   it('should add bun and ingredient to constructor', () => {
     cy.contains('Краторная булка N-200i')
       .parent()
