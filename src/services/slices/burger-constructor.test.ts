@@ -1,4 +1,9 @@
-import reducer, { addIngredient, removeIngredient, moveIngredient } from './burger-constructor';
+import reducer, {
+  addIngredient,
+  removeIngredient,
+  moveIngredient,
+  clearConstructor
+} from './burger-constructor';
 import { TConstructorIngredient } from '../../utils/types';
 
 describe('burgerConstructor slice', () => {
@@ -50,5 +55,11 @@ describe('burgerConstructor slice', () => {
     const start = { bun: null, ingredients: [ingredient, ing2] };
     const state = reducer(start, moveIngredient({ fromIndex: 0, toIndex: 1 }));
     expect(state.ingredients[1]).toEqual(ingredient);
+  });
+
+  it('should handle clearConstructor', () => {
+    const start = { bun, ingredients: [ingredient] };
+    const state = reducer(start, clearConstructor());
+    expect(state).toEqual({ bun: null, ingredients: [] });
   });
 });
