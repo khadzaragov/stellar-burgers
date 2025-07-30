@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "bun1",
+      "name": "Краторная булка N-200i",
+      "type": "bun",
+      "proteins": 80,
+      "fat": 24,
+      "carbohydrates": 53,
+      "calories": 420,
+      "price": 1255,
+      "image": "image.png",
+      "image_mobile": "image.png",
+      "image_large": "image.png"
+    },
+    {
+      "_id": "main1",
+      "name": "Филе люминесцентного тетраодонтимформа",
+      "type": "main",
+      "proteins": 44,
+      "fat": 26,
+      "carbohydrates": 85,
+      "calories": 643,
+      "price": 988,
+      "image": "image.png",
+      "image_mobile": "image.png",
+      "image_large": "image.png"
+    }
+  ]
+}
