@@ -33,7 +33,7 @@ describe('Burger constructor page', () => {
 
     cy.contains('Краторная булка N-200i').click();
     cy.contains('Детали ингредиента').should('exist');
-    cy.get('[data-testid="modal-overlay"]').click('center');
+    cy.get('[data-testid="modal-overlay"]').click('topLeft', { force: true });
     cy.contains('Детали ингредиента').should('not.exist');
   });
 
