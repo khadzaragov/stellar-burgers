@@ -15,7 +15,7 @@ export const fetchFeeds = createAsyncThunk(
   async () => await getFeedsApi()
 );
 
-const initialState: FeedsState = {
+export const initialState: FeedsState = {
   orders: [],
   total: 0,
   totalToday: 0,

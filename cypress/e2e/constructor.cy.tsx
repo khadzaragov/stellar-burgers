@@ -10,6 +10,7 @@ describe('Burger constructor page', () => {
 
   afterEach(() => {
     cy.clearCookies();
+    cy.clearLocalStorage();
   });
 
   it('should add bun and ingredient to constructor', () => {

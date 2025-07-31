@@ -55,7 +55,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   setCookie('accessToken', '', { expires: -1 });
 });
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   user: null,
   isLoggedIn: false,
   isLoading: false,

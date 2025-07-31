@@ -1,8 +1,7 @@
-import reducer, { fetchIngredients } from './ingredients';
+import reducer, { fetchIngredients, initialState } from './ingredients';
 import { TIngredient } from '../../utils/types';
 
 describe('ingredients slice', () => {
-  const initialState = { items: [], isLoading: false, error: null };
   const data: TIngredient[] = [
     {
       _id: 'id1',

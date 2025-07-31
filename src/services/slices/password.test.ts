@@ -1,7 +1,6 @@
-import reducer, { forgotPassword, resetPassword } from './password';
+import reducer, { forgotPassword, resetPassword, initialState } from './password';
 
 describe('password slice', () => {
-  const initialState = { isLoading: false, error: null };
 
   it('should handle forgotPassword pending and fulfilled', () => {
     let state = reducer(initialState, forgotPassword.pending('', { email: 'test@example.com' }));

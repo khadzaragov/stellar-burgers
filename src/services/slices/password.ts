@@ -17,7 +17,7 @@ export const resetPassword = createAsyncThunk(
     await resetPasswordApi(data)
 );
 
-const initialState: PasswordState = {
+export const initialState: PasswordState = {
   isLoading: false,
   error: null
 };

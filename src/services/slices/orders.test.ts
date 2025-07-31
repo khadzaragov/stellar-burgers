@@ -4,18 +4,12 @@ import reducer, {
   fetchOrderByNumber,
   clearOrderModalData,
   clearOrderDetails,
-  setUserOrders
+  setUserOrders,
+  initialState
 } from './orders';
 import { TOrder } from '../../utils/types';
 
 describe('orders slice', () => {
-  const initialState = {
-    orders: [],
-    orderRequest: false,
-    orderModalData: null,
-    orderDetails: null,
-    error: null
-  };
 
   const order: TOrder = {
     _id: '1',

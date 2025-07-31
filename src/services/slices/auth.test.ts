@@ -1,14 +1,15 @@
-import reducer, { loginUser, logout, registerUser, fetchUser, updateUser, setAuthChecked } from './auth';
+import reducer, {
+  loginUser,
+  logout,
+  registerUser,
+  fetchUser,
+  updateUser,
+  setAuthChecked,
+  initialState
+} from './auth';
 import { TUser } from '../../utils/types';
 
 describe('auth slice', () => {
-  const initialState = {
-    user: null,
-    isLoggedIn: false,
-    isLoading: false,
-    isAuthChecked: false,
-    error: null
-  };
 
   const user: TUser = { email: 'test@example.com', name: 'Test' };
 

@@ -1,8 +1,7 @@
-import reducer, { fetchFeeds, setFeedsData } from './feeds';
+import reducer, { fetchFeeds, setFeedsData, initialState } from './feeds';
 import { TOrdersData, TOrder } from '../../utils/types';
 
 describe('feeds slice', () => {
-  const initialState = { orders: [], total: 0, totalToday: 0, isLoading: false, error: null };
   const data: TOrdersData = {
     orders: [
       {
