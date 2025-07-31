@@ -6,6 +6,9 @@ describe('Burger constructor page', () => {
     cy.visit('/');
     cy.wait('@getUser');
     cy.wait('@getIngredients');
+    cy.contains('Краторная булка N-200i').as('bunItem');
+    cy.contains('Филе люминесцентного тетраодонтимформа').as('mainItem');
+    cy.get('[data-testid="burger-constructor"]').as('constructor');
   });
 
   afterEach(() => {
@@ -14,18 +17,18 @@ describe('Burger constructor page', () => {
   });
 
   it('should add bun and ingredient to constructor', () => {
-    cy.contains('Краторная булка N-200i')
+    cy.get('@bunItem')
       .parent()
       .within(() => {
         cy.contains('Добавить').click();
       });
-    cy.contains('Филе люминесцентного тетраодонтимформа')
+    cy.get('@mainItem')
       .parent()
       .within(() => {
         cy.contains('Добавить').click();
       });
 
-    cy.get('[data-testid="burger-constructor"]').within(() => {
+    cy.get('@constructor').within(() => {
       cy.contains('Краторная булка N-200i (верх)').should('exist');
       cy.contains('Краторная булка N-200i (низ)').should('exist');
       cy.contains('Филе люминесцентного тетраодонтимформа').should('exist');
@@ -33,7 +36,7 @@ describe('Burger constructor page', () => {
   });
 
   it('should open and close ingredient modal', () => {
-    cy.contains('Краторная булка N-200i').click();
+    cy.get('@bunItem').click();
     cy.contains('Детали ингредиента').should('exist');
     cy.get('[data-testid="ingredient-details"]').within(() => {
       cy.contains('Краторная булка N-200i').should('exist');
@@ -46,7 +49,7 @@ describe('Burger constructor page', () => {
     cy.get('[data-testid="ingredient-details"]').should('not.exist');
     cy.contains('Детали ингредиента').should('not.exist');
 
-    cy.contains('Краторная булка N-200i').click();
+    cy.get('@bunItem').click();
     cy.contains('Детали ингредиента').should('exist');
     cy.get('[data-testid="ingredient-details"]').within(() => {
       cy.contains('Краторная булка N-200i').should('exist');
@@ -63,12 +66,12 @@ describe('Burger constructor page', () => {
   it('should create order and clear constructor', () => {
     cy.intercept('POST', '**/api/orders', { fixture: 'order.json' }).as('postOrder');
 
-    cy.contains('Краторная булка N-200i')
+    cy.get('@bunItem')
       .parent()
       .within(() => {
         cy.contains('Добавить').click();
       });
-    cy.contains('Филе люминесцентного тетраодонтимформа')
+    cy.get('@mainItem')
       .parent()
       .within(() => {
         cy.contains('Добавить').click();
