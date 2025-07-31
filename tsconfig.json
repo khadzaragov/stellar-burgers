@@ -35,5 +35,8 @@
       "@selectors": ["src/services/selectors.ts"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "cypress/support/index.d.ts"
+  ]
 }

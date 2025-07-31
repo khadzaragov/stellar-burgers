@@ -65,6 +65,7 @@ describe('Burger constructor page', () => {
 
   it('should create order and clear constructor', () => {
     cy.intercept('POST', '**/api/orders', { fixture: 'order.json' }).as('postOrder');
+    cy.fixture('order.json').as('orderData');
 
     cy.get('@bunItem')
       .parent()
@@ -79,9 +80,13 @@ describe('Burger constructor page', () => {
 
     cy.contains('Оформить заказ').click();
     cy.wait('@postOrder');
-    cy.contains('1234').should('exist');
+    cy.get('@orderData').then((data) => {
+      cy.contains(String(data.order.number)).should('exist');
+    });
     cy.get('[data-testid="modal-close"]').click();
-    cy.contains('1234').should('not.exist');
+    cy.get('@orderData').then((data) => {
+      cy.contains(String(data.order.number)).should('not.exist');
+    });
     cy.get('[data-testid="burger-constructor"]').within(() => {
       cy.contains('Выберите булки').should('exist');
       cy.contains('Выберите начинку').should('exist');
