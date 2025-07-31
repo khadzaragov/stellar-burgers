@@ -24,20 +24,38 @@ describe('Burger constructor page', () => {
         cy.contains('Добавить').click();
       });
 
-    cy.contains('Краторная булка N-200i (верх)').should('exist');
-    cy.contains('Краторная булка N-200i (низ)').should('exist');
-    cy.contains('Филе люминесцентного тетраодонтимформа').should('exist');
+    cy.get('[data-testid="burger-constructor"]').within(() => {
+      cy.contains('Краторная булка N-200i (верх)').should('exist');
+      cy.contains('Краторная булка N-200i (низ)').should('exist');
+      cy.contains('Филе люминесцентного тетраодонтимформа').should('exist');
+    });
   });
 
   it('should open and close ingredient modal', () => {
     cy.contains('Краторная булка N-200i').click();
     cy.contains('Детали ингредиента').should('exist');
+    cy.get('[data-testid="ingredient-details"]').within(() => {
+      cy.contains('Краторная булка N-200i').should('exist');
+      cy.contains('420').should('exist');
+      cy.contains('80').should('exist');
+      cy.contains('24').should('exist');
+      cy.contains('53').should('exist');
+    });
     cy.get('[data-testid="modal-close"]').click();
+    cy.get('[data-testid="ingredient-details"]').should('not.exist');
     cy.contains('Детали ингредиента').should('not.exist');
 
     cy.contains('Краторная булка N-200i').click();
     cy.contains('Детали ингредиента').should('exist');
+    cy.get('[data-testid="ingredient-details"]').within(() => {
+      cy.contains('Краторная булка N-200i').should('exist');
+      cy.contains('420').should('exist');
+      cy.contains('80').should('exist');
+      cy.contains('24').should('exist');
+      cy.contains('53').should('exist');
+    });
     cy.get('[data-testid="modal-overlay"]').click('topLeft', { force: true });
+    cy.get('[data-testid="ingredient-details"]').should('not.exist');
     cy.contains('Детали ингредиента').should('not.exist');
   });
 
