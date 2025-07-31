@@ -1,5 +1,9 @@
+import { TOrdersData } from '@utils-types';
+
+export type TFeedInfo = Pick<TOrdersData, 'total' | 'totalToday'>;
+
 export type FeedInfoUIProps = {
-  feed: any;
+  feed: TFeedInfo;
   readyOrders: number[];
   pendingOrders: number[];
 };
