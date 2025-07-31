@@ -79,7 +79,9 @@ describe('Burger constructor page', () => {
     cy.contains('1234').should('exist');
     cy.get('[data-testid="modal-close"]').click();
     cy.contains('1234').should('not.exist');
-    cy.contains('Выберите булки');
-    cy.contains('Выберите начинку');
+    cy.get('[data-testid="burger-constructor"]').within(() => {
+      cy.contains('Выберите булки').should('exist');
+      cy.contains('Выберите начинку').should('exist');
+    });
   });
 });
